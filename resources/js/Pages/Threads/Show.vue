@@ -11,7 +11,7 @@
                 <textarea disabled class="rounded border h-32 px-4">{{ thread.body }}</textarea>
 
                 <ThreadReplies :replies="thread.paginatedReplies.data" :next-link="nextRepliesLink"
-                               :prev-link="prevRepliesLink"/>
+                               :prev-link="prevRepliesLink" :user="$page.user"/>
 
                 <hr class="mt-4">
                 <ReplyForm v-if="$page.user" :thread-id="thread.id"/>

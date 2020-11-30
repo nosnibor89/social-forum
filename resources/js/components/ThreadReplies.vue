@@ -3,7 +3,12 @@
         <h4 class="font-semibold">Replies</h4>
         <!--        TODO: EXTRACT LIST TO ITS OWN COMPONENT-->
         <ul class="rounded border">
-            <ThreadReply v-for="reply of replies" :key="reply.id" :reply="reply"/>
+            <ThreadReply v-for="reply of replies"
+                         :key="reply.id"
+                         :reply="reply"
+                         @like="toggleReply"
+                         :is-favorite="userFavoritesRepliesIds.some(id => +id === +reply.id)"
+                         :likeable="!!user"/>
         </ul>
         <div>
             <inertia-link v-if="prevLink" :href="prevLink" class="no-underline font-semibold text-blue-500">
@@ -19,11 +24,15 @@
 
 <script>
 import ThreadReply from "@/components/ThreadReply";
+import {likeReply} from "@/services/ReplyService";
 
 export default {
     name: "Replies",
     components: {ThreadReply},
     props: {
+        user: {
+            type: Object,
+        },
         replies: {
             type: Array,
             required: true,
@@ -35,5 +44,19 @@ export default {
             type: String,
         },
     },
+    methods: {
+        async toggleReply(reply) {
+            const favorite = await likeReply(reply.id);
+            reply.favorites = [...reply.favorites, favorite]
+        }
+    },
+    computed: {
+        userFavoritesRepliesIds() {
+            const favorites = this.replies.flatMap(reply => reply.favorites);
+            return favorites
+                .filter(favorite => +favorite.user_id === +this.user.id)
+                .map(favorite => favorite.likeable_id);
+        }
+    }
 }
 </script>

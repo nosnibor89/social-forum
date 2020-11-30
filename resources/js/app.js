@@ -1,4 +1,12 @@
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faUserSecret, faHeart} from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+
 import {simpleDate} from "@/filters/date";
+
+library.add(faUserSecret, faHeart)
+
+Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 require('./bootstrap');
 

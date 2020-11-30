@@ -131,8 +131,9 @@
       <Position>6</Position>
       <DataType>datetime|0s</DataType>
     </column>
-    <index id="41" parent="8" name="favorites_likeable_id_likeable_type_unique">
-      <ColNames>likeable_id
+    <index id="41" parent="8" name="favorites_user_id_likeable_id_likeable_type_unique">
+      <ColNames>user_id
+likeable_id
 likeable_type</ColNames>
       <ColumnCollations></ColumnCollations>
       <Unique>1</Unique>

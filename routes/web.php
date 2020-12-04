@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\FavoritesController;
+use App\Http\Controllers\PublicProfilesController;
 use App\Http\Controllers\ReplyController;
 use App\Http\Controllers\ThreadController;
 use Illuminate\Support\Facades\Route;
@@ -35,6 +36,9 @@ Route::get('threads/{channel:slug?}', [ThreadController::class, 'index'])->name(
 Route::get('threads/{channel:slug}/{thread}', [ThreadController::class, 'show'])->name('threads.show');
 Route::resource('threads.replies', ReplyController::class);
 Route::post('/replies/{reply}/favorites', [FavoritesController::class, 'store'])->name('replies.favorites.store');
+
+
+Route::get('/profiles/{user:name}', [PublicProfilesController::class, 'show'])->name('public-profiles.show');
 //Route::resources([
 //    'threads' => ThreadController::class,
 //    'threads.replies' => ReplyController::class

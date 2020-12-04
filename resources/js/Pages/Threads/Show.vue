@@ -2,7 +2,7 @@
     <app-layout>
         <template #header>
             {{ thread.title }} by
-            <inertia-link href="#" class="no-underline font-semibold text-blue-500">
+            <inertia-link :href="route('public-profiles.show', {user: thread.creator.name} )" class="no-underline font-semibold text-blue-500">
                 {{ thread.creator.name }}
             </inertia-link>
         </template>
@@ -61,9 +61,6 @@ export default {
         totalReplies() {
             return this.thread.paginatedReplies.total;
         }
-    },
-    created() {
-        console.log(this.thread.paginatedReplies)
     }
 }
 </script>

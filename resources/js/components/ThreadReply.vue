@@ -9,7 +9,11 @@
         </div>
 
         <small class="text-right text-gray-400 block mt-4">
-            {{ reply.owner.name }},
+            <inertia-link :href="route('public-profiles.show', { user: reply.owner.name })"
+                          class="no-underline font-semibold text-blue-500">
+                {{ reply.owner.name }}
+            </inertia-link>
+            ,
             {{ reply.created_at | simpleDate }}
         </small>
     </li>

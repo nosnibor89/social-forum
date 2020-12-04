@@ -11,8 +11,7 @@ class Thread extends Model
     use HasFactory;
 
     protected $guarded = [];
-
-//    protected $appends = [''];
+    protected $withCount = ['replies'];
 
     public function getPaginatedRepliesAttribute()
     {

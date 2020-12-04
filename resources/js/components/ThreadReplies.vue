@@ -52,6 +52,9 @@ export default {
     },
     computed: {
         userFavoritesRepliesIds() {
+            if (!this.user) {
+                return [];
+            }
             const favorites = this.replies.flatMap(reply => reply.favorites);
             return favorites
                 .filter(favorite => +favorite.user_id === +this.user.id)

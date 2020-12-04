@@ -19,20 +19,14 @@ class ThreadController extends BaseForumController
      */
     public function index(Channel $channel, ThreadsFilters $filters)
     {
-
-        $threadsQuery = $channel->exists ? $channel->threads()->withCount('replies')->latest() : Thread::withCount('replies')->latest();
-
-
+        $threadsQuery = $channel->exists ? $channel->threads()->latest() : Thread::latest();
         $threads = $threadsQuery->filter($filters)->get();
 
         if (request()->hasHeader('test-json')) {
             return $threads;
         }
 
-//        return $threads;
-
         return Inertia::render('Threads/Index', compact('threads'));
-//        return view('threads.index', compact('threads'));
     }
 
     /**

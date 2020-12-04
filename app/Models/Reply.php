@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use App\Models\Traits\Likeable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Reply extends Model
 {
-    use HasFactory;
+    use HasFactory, Likeable;
 
     protected $with = ['owner', 'favorites'];
 
@@ -21,22 +22,4 @@ class Reply extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
-     */
-    public function favorites()
-    {
-        return $this->morphMany(Favorite::class, 'likeable');
-    }
-
-    /**
-     * @param User $user
-     * @return Model
-     */
-    public function markAsFavoriteFor(User $user)
-    {
-        return $this->favorites()->create([
-            'user_id' => $user->id,
-        ]);
-    }
 }
